@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>JS</h1>
+    Javascript is a high level interpreted scripting language used to make web pages interactive.
+
+    Scopes:
+    1. Web development
+    2. AI / ML - Tensor flow
+    3. Game design
+    4. Backend (node,express)
+    6. Mobile development (React Native)
+
+    <h2>Syntax and Statement </h2>
+    Syntax are set of rules on how JS programs are conducted.
+    1. Fixed Values - Numbers and Strings
+    2. Variable Values - var,let,const
+
+    <h3>Fixed Values</h3>
+    <p>NUmbers</p>
+    <p id="demo"></p>
+    <p id="stringDemo"></p>
+
+    <h3>Variables</h3>
+    Variable are used to store data values.
+    Variable types : var , let , const
+
+    <!-- Task : Search about function scoped and block scoped in js -->
+    function scope : When a variable is declared inside a function , it is only accessible within that function and
+    cannot be used outside that function.
+
+    block scoped: A variable when declared inside the if or switch condition or inside for or while loops, are
+    accessible within that particular condition or loop.
+
+    var : Function scoped
+    let and const block scoped
+
+    <h2>Reassigned and Constant</h2>
+    let : is for values you expect to change over time ( like a game score, a counter and a user status)
+    const : stands for "constant". Once you assign it a value you cannot overwrite that value
+
+    
+
+    <h2>DATA TYPES IN JAVASCRIPT</h2>
+        1. Primitive Data type (String , numbers , boolean , undefined , null,bigInt)
+
+        2. Objects ( Reference Data types)
+
+    <script>
+        // number
+        document.getElementById('demo').innerHTML = 6.67
+
+        // string
+        document.getElementById('stringDemo').innerHTML = "Ayush SHrestha"
+
+        // Function scope example and block scope example
+
+        if (true) {
+            var functionScoped = " I can Escape"
+            let blockScoped = " I am trapped in these braces"
+        }
+        console.log(functionScoped)
+        // console.log(blockScoped) 
+
+        let score=100
+        score=200
+        score=500
+        console.log(score)
+
+        const myScore=600
+        // myScore=1000 (produces error)
+        console.log(myScore)
+
+
+        //Operators
+        let a=10
+        let b=10
+        console.log(a+b)
+        console.log(a-b)
+        console.log(a*b)
+        console.log(a/b)
+        console.log(a**b) //exponential
+        console.log(a%b) //modulus (remainder)
+
+        // EQUALS AND OR 
+        console.log("---------")
+        console.log(a==b) //Equals ==
+        console.log(a===b) // === ? string === number
+        console.log(a!=b) // not equals to 
+        console.log(a!==b) // strictly not equals to 
+        console.log(a<b)
+        console.log(a>b)
+
+        //primitive data type examples
+        let name = "AYush " //string
+        let age = 12 // numbers
+        let isStudent= false //boolean
+        let mySymbolNumber; // undefined
+        let emptyValue= null; // null
+        console.log(name, age,isStudent,mySymbolNumber,emptyValue )
+
+        //OBJECTS
+        // OBjects are collection of key value pairs . In real life objects are things like house cars people animals or any other subjects
+
+        let superHero={
+            name:"SpiderMan",
+            superPower:["Web Crawling", "Wall Climbing" , "SpideySense"],
+            age:24,
+            punchLine:"With great powers comes great responsibility"
+        }
+
+        console.log(superHero.name)
+        console.log(superHero.superPower[0])
+        console.log(superHero.age)
+        console.log(superHero.punchLine)
+
+        // FUNCTION
+        // A function is a reusable block of code
+
+        // function functionName(parameter1 , parameter2){
+        //     block of code 
+        // }
+
+        function greet(name, age){
+            console.log("Good Morning "+name+" sir. Your age is "+age)
+        }
+        greet("ayush",12)
+        greet("ayush",12)
+
+        //arrow function
+        // const functionName = (parameter1 , paramerter2)=>{
+            //block of code
+        // }
+
+        const greetings=(name, age)=>{
+            // console.log("my name is "+name)
+            console.log(`My name is ${name}, my age is ${age}`)
+        }
+        greetings("AYush",12)
+
+        //task 1 : Make an arrow function which takes your age and verify if you are above the age of 20.
+        
+
+    </script>
+</body>
+
+</html>

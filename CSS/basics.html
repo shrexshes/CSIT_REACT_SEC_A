@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* internal css */
+        h2{
+            background-color: blue;
+        }
+        /* box model example  */
+        .dummy-text{
+            /* 12px=1rem */
+            padding:1rem;
+            border: 1px solid black;
+            margin: 5rem;
+        }
+        .spacing{
+            /* top left bottom right */
+            padding:0rem 5rem 5rem 10rem;
+        }
+        .main{
+            display: flex;
+            gap: 10px;
+            /* flex-direction: column; */
+        }
+        .division-1{
+            background-color: brown;
+            width: 5rem;
+            height: 5rem;
+        }
+        .division-2{
+            background-color: rgb(255, 71, 71);
+            width: 5rem;
+            height: 5rem;
+        }
+        .division-3{
+            background-color: rgb(0, 0, 0);
+            width: 5rem;
+            height: 5rem;
+        }
+        .names > p{
+            color: red;
+        }
+        /* hw : grid padera awoone  */
+    </style>
+</head>
+<body>
+    <!-- inline css -->
+    <h1 style="background-color: red;">This is CSS</h1>
+    <h2>This is Cascading Style Sheets</h2>
+    <p class="dummy-text">THis is paragraph</p>
+    <p class="spacing">Spacings</p>
+
+    <p style="text-decoration: underline;">Text Decoration</p>
+    <p style="text-transform: capitalize;">Text Transform : lowercase,uppercase, capitalize
+    </p>
+
+    <!-- Flex -->
+     <div class="main">
+        <div class="division-1">
+        </div>
+
+        <div class="division-2">
+        </div>
+
+        <div class="division-3">
+        </div>
+     </div>
+
+     <div class="names">
+        <p>Prekshya</p>
+        <p>Sandhya</p>
+        <p>David</p>
+     </div>
+</body>
+</html>
