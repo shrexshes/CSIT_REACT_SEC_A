@@ -46,12 +46,26 @@
     let : is for values you expect to change over time ( like a game score, a counter and a user status)
     const : stands for "constant". Once you assign it a value you cannot overwrite that value
 
-    
+
 
     <h2>DATA TYPES IN JAVASCRIPT</h2>
-        1. Primitive Data type (String , numbers , boolean , undefined , null,bigInt)
+    1. Primitive Data type (String , numbers , boolean , undefined , null,bigInt)
 
-        2. Objects ( Reference Data types)
+    2. Objects ( Reference Data types)
+
+    <h2>PROMISES IN JS</h2>
+    Promises in js is an object that represents the eventual completion (or faliure) of an asynchronous operation and
+    its resulting values.
+
+    Its like a "promise" that something will happen and you can decide what to do when it does , or it fails. it helps
+    to handle asynchronous task, like fetching from an api , reading a file or waiting for a timer.
+
+    Promises have 3 states:
+    1. Pending : the task is still running
+    2. Fulfilled (Resolved): The task completed successfully
+    3. Rejected: The task failed.
+
+
 
     <script>
         // number
@@ -69,51 +83,51 @@
         console.log(functionScoped)
         // console.log(blockScoped) 
 
-        let score=100
-        score=200
-        score=500
+        let score = 100
+        score = 200
+        score = 500
         console.log(score)
 
-        const myScore=600
+        const myScore = 600
         // myScore=1000 (produces error)
         console.log(myScore)
 
 
         //Operators
-        let a=10
-        let b=10
-        console.log(a+b)
-        console.log(a-b)
-        console.log(a*b)
-        console.log(a/b)
-        console.log(a**b) //exponential
-        console.log(a%b) //modulus (remainder)
+        let a = 10
+        let b = 10
+        console.log(a + b)
+        console.log(a - b)
+        console.log(a * b)
+        console.log(a / b)
+        console.log(a ** b) //exponential
+        console.log(a % b) //modulus (remainder)
 
         // EQUALS AND OR 
         console.log("---------")
-        console.log(a==b) //Equals ==
-        console.log(a===b) // === ? string === number
-        console.log(a!=b) // not equals to 
-        console.log(a!==b) // strictly not equals to 
-        console.log(a<b)
-        console.log(a>b)
+        console.log(a == b) //Equals ==
+        console.log(a === b) // === ? string === number
+        console.log(a != b) // not equals to 
+        console.log(a !== b) // strictly not equals to 
+        console.log(a < b)
+        console.log(a > b)
 
         //primitive data type examples
         let name = "AYush " //string
         let age = 12 // numbers
-        let isStudent= false //boolean
+        let isStudent = false //boolean
         let mySymbolNumber; // undefined
-        let emptyValue= null; // null
-        console.log(name, age,isStudent,mySymbolNumber,emptyValue )
+        let emptyValue = null; // null
+        console.log(name, age, isStudent, mySymbolNumber, emptyValue)
 
         //OBJECTS
         // OBjects are collection of key value pairs . In real life objects are things like house cars people animals or any other subjects
 
-        let superHero={
-            name:"SpiderMan",
-            superPower:["Web Crawling", "Wall Climbing" , "SpideySense"],
-            age:24,
-            punchLine:"With great powers comes great responsibility"
+        let superHero = {
+            name: "SpiderMan",
+            superPower: ["Web Crawling", "Wall Climbing", "SpideySense"],
+            age: 24,
+            punchLine: "With great powers comes great responsibility"
         }
 
         console.log(superHero.name)
@@ -128,26 +142,91 @@
         //     block of code 
         // }
 
-        function greet(name, age){
-            console.log("Good Morning "+name+" sir. Your age is "+age)
+        function greet(name, age) {
+            console.log("Good Morning " + name + " sir. Your age is " + age)
         }
-        greet("ayush",12)
-        greet("ayush",12)
+        greet("ayush", 12)
+        greet("ayush", 12)
 
         //arrow function
         // const functionName = (parameter1 , paramerter2)=>{
-            //block of code
+        //block of code
         // }
 
-        const greetings=(name, age)=>{
+        const greetings = (name, age) => {
             // console.log("my name is "+name)
             console.log(`My name is ${name}, my age is ${age}`)
         }
-        greetings("AYush",12)
+        greetings("AYush", 12)
 
         //task 1 : Make an arrow function which takes your age and verify if you are above the age of 20.
-        
 
+
+        // PROMISE EXAMPLE
+        function cookFood() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    let success = true
+                    if (success) {
+                        console.log("Cooked Food")
+                        resolve("Food is ready")
+                    } else {
+                        reject("Failed to cook food")
+                    }
+                }, 1000);
+            })
+        }
+
+        function eatFood() {
+            return new Promise((resolve, rejct) => {
+                setTimeout(() => {
+                    let success = true
+                    if (success) {
+                        console.log("ATE FOOD YUMMM")
+                        resolve("Food is eaten")
+                    }
+                    else {
+                        reject("Food was not tasty , so didnt eat food")
+                    }
+                }, 2000)
+            })
+        }
+
+        function washDish() {
+            return new Promise((resolve, rejct) => {
+                setTimeout(() => {
+                    let success = true
+                    if (success) {
+                        console.log("Wash Dishes")
+                        resolve("Dishes are clean")
+                    }
+                    else {
+                        reject("Nahh didnt wash any dishes")
+                    }
+                }, 3000)
+            })
+        }
+
+        // .then , .catch , .finally
+
+        //promise chaining
+        cookFood()
+        .then(
+            result => {
+                console.log(result);
+                return eatFood()
+            })
+            .then(
+                result => {
+                    console.log(result)
+                    return washDish()
+                })
+            .then(
+                result=>{
+                    console.log(result)
+                    console.log("ALL TASK ARE COMPLETED")
+                }
+            )
     </script>
 </body>
 
