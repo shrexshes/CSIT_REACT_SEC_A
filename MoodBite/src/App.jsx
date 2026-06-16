@@ -6,6 +6,7 @@ import './App.css'
 import Header from './components/Header'
 import ApiSetup from './components/ApiSetup'
 import HeroText from './components/HeroText'
+import MoodSelector from './components/MoodSelector'
 
 function App() {
   const [showApiKey, setShowApiKey] = useState(false)
@@ -35,7 +36,7 @@ function App() {
     )
   }
 
-
+// shrexshes
   const MOODS = [
     { id: "happy", emoji: "😄", label: "Happy", color: "from-yellow-400 to-orange-400", bg: "bg-yellow-50", border: "border-yellow-300" },
     { id: "cozy", emoji: "🧸", label: "Cozy", color: "from-amber-400 to-brown-400", bg: "bg-amber-50", border: "border-amber-300" },
@@ -51,6 +52,7 @@ function App() {
     <>
       <Header onChangeApiKey={() => setShowApiKey(true)} />
       <HeroText />
+      <MoodSelector moods={MOODS}/>
     </>
   )
 }
