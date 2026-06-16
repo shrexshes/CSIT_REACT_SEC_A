@@ -210,24 +210,56 @@
         // .then , .catch , .finally
 
         //promise chaining
-        cookFood()
-        .then(
-            result => {
-                console.log(result);
-                return eatFood()
-            })
-            .then(
-                result => {
-                    console.log(result)
-                    return washDish()
-                })
-            .then(
-                result=>{
-                    console.log(result)
-                    console.log("ALL TASK ARE COMPLETED")
-                }
-            )
+        // cookFood()
+        //     .then(
+        //         result => {
+        //             console.log(result);
+        //             return eatFood()
+        //         })
+        //     .then(
+        //         result => {
+        //             console.log(result)
+        //             return washDish()
+        //         })
+        //     .then(
+        //         result => {
+        //             console.log(result)
+        //             console.log("ALL TASK ARE COMPLETED")
+        //         }
+        //     )
+
+        //async and await 
+        /*
+        IN js async and await are features that make working with asynchronous code like promises easier and more readable. They are essentially a cleaner , more synchronous looking way to handle operations that take time such as fetching data , reading files, or waiting for timer.
+        */
+
+        async function dailyRoutines(){
+            try {
+               
+                let food =await cookFood()
+                console.log(food)
+
+                let eat=await eatFood()
+                console.log(eat)
+
+                let wash=await washDish()
+                console.log(wash)
+                console.log("ASYNC AND AWAIT TASK COMPLETED")
+                
+            } catch (error) {
+             console.log(error)   
+            }
+        }
+        dailyRoutines()
+
+
+        const getData=async(url)=>{
+            const response=await fetch(url)
+            const result=await response.json()
+            console.log(result)
+        }
+        getData('https://jsonplaceholder.typicode.com/todos')
     </script>
 </body>
-
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 </html>
