@@ -13,6 +13,12 @@ function App() {
   const [apiKeyInput, setApiKeyInput] = useState("")
   //to save in localstorage
   const [apiKey, setApiKey] = useState("")
+  // for mood selector
+  const [selectedMood,setSelectedMood]=useState(null)
+  const [customMood,setCustomMood]=useState("")
+
+  
+
 
   const handleApiKeySubmit = (e) => { // e helps to trigger an event
     e.preventDefault() // stops the webpage to reload
@@ -36,7 +42,7 @@ function App() {
     )
   }
 
-// shrexshes
+  // shrexshes
   const MOODS = [
     { id: "happy", emoji: "😄", label: "Happy", color: "from-yellow-400 to-orange-400", bg: "bg-yellow-50", border: "border-yellow-300" },
     { id: "cozy", emoji: "🧸", label: "Cozy", color: "from-amber-400 to-brown-400", bg: "bg-amber-50", border: "border-amber-300" },
@@ -48,11 +54,30 @@ function App() {
     { id: "lazy", emoji: "🛋️", label: "Lazy", color: "from-slate-400 to-gray-500", bg: "bg-slate-50", border: "border-slate-300" },
   ];
 
+  //to fetch from gemini api 
+  const fetchRecipes=async(moodLabel)=>{
+    const prompt=`YOu are a creative culinary expert . Based on someone feeling ${moodLabel} . right now suggest 2 recipe ideas that match the mood
+    For Each recipe , return a json object with : 
+    - name:string( creative name with nepali background)
+    - description : string (1-2 sentences about why this recipes fits the mood)
+    - difficulty : string ("EASY","MEDIUM","HARD")
+    - cookTime:string eg(20mins)
+    - steps:array of string(5-7 clear cooking steps)
+
+    Return only valid json array of 2 recipes, no markdown, no extra text`
+
+    try {
+      
+    } catch (error) {
+      console.log(error || "Something went wrong!")
+    }
+  }
+
   return (
     <>
       <Header onChangeApiKey={() => setShowApiKey(true)} />
       <HeroText />
-      <MoodSelector moods={MOODS}/>
+      <MoodSelector moods={MOODS} customMood={customMood} selectMood={selectedMood} setCustomMood={setCustomMood}  />
     </>
   )
 }
