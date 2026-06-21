@@ -67,7 +67,11 @@ function App() {
     Return only valid json array of 2 recipes, no markdown, no extra text`
 
     try {
-      
+      const response=await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent",{
+        method:"POST",
+        headers:{"Content-Type":"application/json",'X-goog-api-key':apiKey},
+        
+      })
     } catch (error) {
       console.log(error || "Something went wrong!")
     }
