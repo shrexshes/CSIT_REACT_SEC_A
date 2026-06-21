@@ -14,10 +14,12 @@ function App() {
   //to save in localstorage
   const [apiKey, setApiKey] = useState("")
   // for mood selector
-  const [selectedMood,setSelectedMood]=useState(null)
-  const [customMood,setCustomMood]=useState("")
+  const [selectedMood, setSelectedMood] = useState(null)
+  const [customMood, setCustomMood] = useState("")
 
-  
+  // for recipes
+  const [recipes,setRecipes]=useState([])
+  const [loading,setLoading]=useState(false)
 
 
   const handleApiKeySubmit = (e) => { // e helps to trigger an event
@@ -55,8 +57,8 @@ function App() {
   ];
 
   //to fetch from gemini api 
-  const fetchRecipes=async(moodLabel)=>{
-    const prompt=`YOu are a creative culinary expert . Based on someone feeling ${moodLabel} . right now suggest 2 recipe ideas that match the mood
+  const fetchRecipes = async (moodLabel) => {
+    const prompt = `YOu are a creative culinary expert . Based on someone feeling ${moodLabel} . right now suggest 2 recipe ideas that match the mood
     For Each recipe , return a json object with : 
     - name:string( creative name with nepali background)
     - description : string (1-2 sentences about why this recipes fits the mood)
@@ -67,13 +69,57 @@ function App() {
     Return only valid json array of 2 recipes, no markdown, no extra text`
 
     try {
-      const response=await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent",{
-        method:"POST",
-        headers:{"Content-Type":"application/json",'X-goog-api-key':apiKey},
-        
+      const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", 'X-goog-api-key': apiKey },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: {
+            temperature: 0.9, maxOutputTokens: 8192
+          }
+        }),
       })
+
+      //if kei garera error ayo bhanne
+      if(!response.ok){
+        const err= await response.json()
+        console.log(err)
+        throw new Error(err.error.message || "API REQUEST FAILED")
+      }
+
+      // if hamro response success bho bhanne
+      const data=await response.json()
+      const text=data.candidates[0]?.content?.parts[0]?.text;
+      console.log(text)
+
+      //if text variable is empty
+      if(!text){
+        throw new Error("No response from Gemini")
+      }
+
+      //cleaning part
+      const cleaned=text.replace(/```json\n?/g,"").replace(/```\n?/g,"").trim()
+      const parsed=JSON.parse(cleaned)
+      setRecipes(parsed)
+
     } catch (error) {
       console.log(error || "Something went wrong!")
+    }
+  }
+
+  const handleMoodSelect=(mood)=>{
+    //this function is used to select tbe mood from the MOOD json data and if there is anything typed in custom mood then it makes it empty
+    setSelectedMood(mood)
+    setCustomMood("")
+    console.log(mood.label)
+    fetchRecipes(mood.label)
+  }
+
+  const handleCustomMoodSubmit=(e)=>{
+    e.preventDefault()
+    if(customMood){
+      setSelectedMood({id:'custom',emoji:'custom',label:customMood.trim()})
+      fetchRecipes(customMood)
     }
   }
 
@@ -81,7 +127,7 @@ function App() {
     <>
       <Header onChangeApiKey={() => setShowApiKey(true)} />
       <HeroText />
-      <MoodSelector moods={MOODS} customMood={customMood} selectMood={selectedMood} setCustomMood={setCustomMood}  />
+      <MoodSelector moods={MOODS} customMood={customMood} onMoodSelect={handleMoodSelect} selectMood={selectedMood} setCustomMood={setCustomMood} />
     </>
   )
 }
