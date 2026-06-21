@@ -18,8 +18,8 @@ function App() {
   const [customMood, setCustomMood] = useState("")
 
   // for recipes
-  const [recipes,setRecipes]=useState([])
-  const [loading,setLoading]=useState(false)
+  const [recipes, setRecipes] = useState([])
+  const [loading, setLoading] = useState(false)
 
 
   const handleApiKeySubmit = (e) => { // e helps to trigger an event
@@ -81,25 +81,25 @@ function App() {
       })
 
       //if kei garera error ayo bhanne
-      if(!response.ok){
-        const err= await response.json()
+      if (!response.ok) {
+        const err = await response.json()
         console.log(err)
         throw new Error(err.error.message || "API REQUEST FAILED")
       }
 
       // if hamro response success bho bhanne
-      const data=await response.json()
-      const text=data.candidates[0]?.content?.parts[0]?.text;
+      const data = await response.json()
+      const text = data.candidates[0]?.content?.parts[0]?.text;
       console.log(text)
 
       //if text variable is empty
-      if(!text){
+      if (!text) {
         throw new Error("No response from Gemini")
       }
 
       //cleaning part
-      const cleaned=text.replace(/```json\n?/g,"").replace(/```\n?/g,"").trim()
-      const parsed=JSON.parse(cleaned)
+      const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim()
+      const parsed = JSON.parse(cleaned)
       setRecipes(parsed)
 
     } catch (error) {
@@ -107,7 +107,9 @@ function App() {
     }
   }
 
-  const handleMoodSelect=(mood)=>{
+  console.log("recipe",recipes)
+
+  const handleMoodSelect = (mood) => {
     //this function is used to select tbe mood from the MOOD json data and if there is anything typed in custom mood then it makes it empty
     setSelectedMood(mood)
     setCustomMood("")
@@ -115,10 +117,10 @@ function App() {
     fetchRecipes(mood.label)
   }
 
-  const handleCustomMoodSubmit=(e)=>{
+  const handleCustomMoodSubmit = (e) => {
     e.preventDefault()
-    if(customMood){
-      setSelectedMood({id:'custom',emoji:'custom',label:customMood.trim()})
+    if (customMood) {
+      setSelectedMood({ id: 'custom', emoji: 'custom', label: customMood.trim() })
       fetchRecipes(customMood)
     }
   }
@@ -127,7 +129,23 @@ function App() {
     <>
       <Header onChangeApiKey={() => setShowApiKey(true)} />
       <HeroText />
-      <MoodSelector moods={MOODS} customMood={customMood} onMoodSelect={handleMoodSelect} selectMood={selectedMood} setCustomMood={setCustomMood} />
+      <MoodSelector moods={MOODS} customMood={customMood} onMoodSelect={handleMoodSelect} selectMood={selectedMood} setCustomMood={setCustomMood}
+        onCustomSubmit={handleCustomMoodSubmit}
+      />
+      <div className='max-w-6xl mx-auto pt-10'>
+        {recipes.map((recipe) => (
+          <div className='bg-neutral-900 text-white p-6 rounded-4xl my-6'>
+            <p className='text-2xl google font-bold py-10'>{recipe.name}</p>
+            <p className='text-lg google py-4'>{recipe.description}</p>
+            <p className='text-sm w-fit bg-white text-black rounded-full px-4 pyt-2'>{recipe.cookTime}</p>
+
+            <p className='text-2xl pt-10 font-bold'>Steps</p>
+            {recipe.steps.map((step) => (
+              <li className='google text-lg'>{step}</li>
+            ))}
+          </div>
+        ))}
+      </div>
     </>
   )
 }
